@@ -7,7 +7,7 @@ const URL_DEPUTADO_ESTADUAL = 'https://resultados.tse.jus.br/oficial/ele2022/546
 const URL_DEPUTADO_FEDERAL = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0006-e000546-r.json'
 const URL_DEPUTADO_SENADOR = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0005-e000546-r.json'
 
-const expirationTime = 5000;
+const expirationTime = 30000;
 
 let apuracao = [];
 
@@ -84,13 +84,17 @@ async function getSenador() {
 
 async function start() {
 	while (true) {
-		await waitSec(expirationTime);
+		
 		console.clear();
 
 		await getPresidente()
+		await waitSec(1000);
 		await getSenador()
+		await waitSec(1000);
 		await getDeputadoEstadual()
+		await waitSec(1000);
 		await getDeputadoFederal()
+		await waitSec(expirationTime);
 	}
 }
 
