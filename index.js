@@ -2,12 +2,12 @@
 
 const axios = require('axios').default;
 
-const URL_PRESIDENTE = 'https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json';
+const URL_PRESIDENTE =        'https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json';
 const URL_DEPUTADO_ESTADUAL = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0007-e000546-r.json';
-const URL_DEPUTADO_FEDERAL = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0006-e000546-r.json'
-const URL_DEPUTADO_SENADOR = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0005-e000546-r.json'
+const URL_DEPUTADO_FEDERAL =  'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0006-e000546-r.json'
+const URL_DEPUTADO_SENADOR =  'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0005-e000546-r.json'
 
-const expirationTime = 30000;
+const expirationTime = 60000;
 
 let apuracao = [];
 
@@ -25,8 +25,8 @@ async function getResult(URL) {
 		const response = await axios.get(URL);
 		console.log(`${response.data.pst}% das seções totalizadas`)
 		mostraApuracao(response.data.cand)
-	} catch (error) {
-		console.error(error);
+	} catch {
+		console.error('timeout');
 	}
 }
 
