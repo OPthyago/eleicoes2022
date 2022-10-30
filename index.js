@@ -2,10 +2,12 @@
 
 const axios = require('axios').default;
 
-const URL_PRESIDENTE =        'https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json';
+const URL_PRESIDENTE = 'https://resultados.tse.jus.br/oficial/ele2022/544/dados-simplificados/br/br-c0001-e000544-r.json';
+const URL_PRESIDENTE_2_TURNO = 'https://resultados.tse.jus.br/oficial/ele2022/545/dados-simplificados/br/br-c0001-e000545-r.json';
+const URL_PRESIDENTE_MG_2_TURNO = 'https://resultados.tse.jus.br/oficial/ele2022/545/dados-simplificados/mg/mg-c0001-e000545-r.json';
 const URL_DEPUTADO_ESTADUAL = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0007-e000546-r.json';
-const URL_DEPUTADO_FEDERAL =  'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0006-e000546-r.json'
-const URL_DEPUTADO_SENADOR =  'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0005-e000546-r.json'
+const URL_DEPUTADO_FEDERAL = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0006-e000546-r.json'
+const URL_DEPUTADO_SENADOR = 'https://resultados.tse.jus.br/oficial/ele2022/546/dados-simplificados/mg/mg-c0005-e000546-r.json'
 
 const expirationTime = 60000;
 
@@ -59,12 +61,24 @@ function mostraApuracao(apuracaoData) {
 		return 0;
 	}));
 
+	console.log('Diferenca de votos: ', apuracao[0].n_votos - apuracao[1].n_votos)
+
 	apuracao = [];
 }
 
 async function getPresidente() {
 	console.log('Presidente');
 	await getResult(URL_PRESIDENTE)
+}
+
+async function getPresidente2Turno() {
+	console.log('Presidente 2 turno');
+	await getResult(URL_PRESIDENTE_2_TURNO)
+}
+
+async function getPresidenteMG2Turno() {
+	console.log('Presidente 2 turno - MG');
+	await getResult(URL_PRESIDENTE_MG_2_TURNO)
 }
 
 async function getDeputadoEstadual() {
@@ -84,17 +98,21 @@ async function getSenador() {
 
 async function start() {
 	while (true) {
-		
+
 		console.clear();
 
-		await getPresidente()
+		// await getPresidente()
+		await getPresidente2Turno()
 		await waitSec(1000);
-		await getSenador()
-		await waitSec(1000);
-		await getDeputadoEstadual()
-		await waitSec(1000);
-		await getDeputadoFederal()
-		await waitSec(expirationTime);
+		console.log('')
+		await getPresidenteMG2Turno()
+		await waitSec(5000);
+		// await getSenador()
+		// await waitSec(1000);
+		// await getDeputadoEstadual()
+		// await waitSec(1000);
+		// await getDeputadoFederal()
+		// await waitSec(expirationTime);
 	}
 }
 
